@@ -17,17 +17,20 @@
     
     if ($resposta) {
         $dados = json_decode($resposta);
-        foreach ($dados->articles as $noticia) {
-            $listaNoticias[] = [
-                "nomeJornal" => $noticia->source->name ?? 'Desconhecido',
-                "autor" => $noticia->author ?? 'Não informado',
-                "titulo" => $noticia->title ?? 'Sem título',
-                "descricao" => $noticia->description ?? 'Sem descrição',
-                "url" => $noticia->url ?? '#',
-                "imagem" => $noticia->urlToImage ?? 'imgs/default.jpg',
-                "dataPublicado" => $noticia->publishedAt ?? 'Sem data',
-                "conteudo" => $noticia->content ?? 'Sem conteúdo',
-            ];
+        if (isset($dados->articles)) {
+            foreach ($dados->articles as $noticia) {
+                $listaNoticias[] = [
+                    "nomeJornal" => $noticia->source->name ?? 'Desconhecido',
+                    "autor" => $noticia->author ?? 'Não informado',
+                    "titulo" => $noticia->title ?? 'Sem título',
+                    "descricao" => $noticia->description ?? 'Sem descrição',
+                    "url" => $noticia->url ?? '#',
+                    "imagem" => $noticia->urlToImage ?? 'imgs/default.png',
+                    "dataPublicado" => $noticia->publishedAt ?? 'Sem data',
+                    "conteudo" => $noticia->content ?? 'Sem conteúdo',
+                ];
+            }
         }
     }
+    return $listaNoticias;
 ?>
